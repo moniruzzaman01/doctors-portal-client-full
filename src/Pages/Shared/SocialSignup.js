@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
 import { useSignInWithGoogle } from "react-firebase-hooks/auth";
-import auth from "../../firebase.init";
-import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import auth from "../../firebase.init";
 
 const SocialSignup = () => {
   const [googleSignIn, user] = useSignInWithGoogle(auth);
@@ -11,7 +10,6 @@ const SocialSignup = () => {
   //-------------------------
   const handleGoogleSignup = async () => {
     await googleSignIn();
-    toast(`Hello ${user?.user?.displayName || ""}! Task successfull.`);
   };
 
   //---------------------
@@ -20,7 +18,6 @@ const SocialSignup = () => {
       navigate("/");
     }
   }, [user, navigate]);
-
   return (
     <div>
       <div className="flex flex-col w-full border-opacity-50">
