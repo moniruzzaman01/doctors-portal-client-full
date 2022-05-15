@@ -1,43 +1,21 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import chair from "../../assets/images/chair.png";
 import Footer from "../Shared/Footer";
 import AvailableAppointment from "./AvailableAppointment";
 import { DayPicker } from "react-day-picker";
 import "react-day-picker/dist/style.css";
+import axios from "axios";
 
 const Appoinment = () => {
-  const recentAppontment = [
-    {
-      name: "Teeth Orthodontics",
-      time: "8:00 am - 9:00 am",
-      spaces: "10 spaces available",
-    },
-    {
-      name: "Cosmetic Dentistry",
-      time: "8:00 am - 9:00 am",
-      spaces: "10 spaces available",
-    },
-    {
-      name: "Teeth Cleaning",
-      time: "8:00 am - 9:00 am",
-      spaces: "10 spaces available",
-    },
-    {
-      name: "Teeth Orthodontics",
-      time: "8:00 am - 9:00 am",
-      spaces: "10 spaces available",
-    },
-    {
-      name: "Teeth Orthodontics",
-      time: "8:00 am - 9:00 am",
-      spaces: "10 spaces available",
-    },
-    {
-      name: "Teeth Orthodontics",
-      time: "8:00 am - 9:00 am",
-      spaces: "10 spaces available",
-    },
-  ];
+  const [services, setServices] = useState([]);
+
+  //------------------------------
+  useEffect(() => {
+    axios(`http://localhost:5000/services`).then(({ data }) =>
+      setServices(data)
+    );
+  }, []);
+
   return (
     <section>
       <div className="hero lg:my-20">
@@ -57,14 +35,20 @@ const Appoinment = () => {
           Available Appointments on April 30,2022
         </h4>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:mx-20 mx-5">
-          {recentAppontment.map((reApp, key) => (
+          {services.map((service, index) => (
+            <AvailableAppointment
+              key={index}
+              service={service}
+            ></AvailableAppointment>
+          ))}
+          {/* {recentAppontment.map((reApp, key) => (
             <AvailableAppointment
               key={key}
               name={reApp.name}
               time={reApp.time}
               spaces={reApp.spaces}
             ></AvailableAppointment>
-          ))}
+          ))} */}
         </div>
       </div>
       <Footer />
