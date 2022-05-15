@@ -7,6 +7,8 @@ import Login from "./Pages/Login/Login";
 import Review from "./Pages/Review/Review";
 import Navbar from "./Pages/Shared/Navbar";
 import Signup from "./Pages/Signup/Signup";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
@@ -24,6 +26,7 @@ function App() {
           <Route path="/signup" element={<Signup />}></Route>
         </Routes>
       </div>
+      <ToastContainer />
     </div>
   );
 }

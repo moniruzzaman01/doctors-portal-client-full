@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import SocialSignup from "../Shared/SocialSignup";
 
 const Login = () => {
   return (
@@ -31,10 +32,7 @@ const Login = () => {
           </Link>
         </p>
       </form>
-      <div className="flex flex-col w-full border-opacity-50">
-        <div className="divider my-14">OR</div>
-      </div>
-      <button className="btn btn-outline w-full">continue with google</button>
+      <SocialSignup />
     </div>
   );
 };
