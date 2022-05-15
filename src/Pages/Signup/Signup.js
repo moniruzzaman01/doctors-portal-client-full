@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import SocialSignup from "../Shared/SocialSignup";
 import {
   useCreateUserWithEmailAndPassword,
@@ -14,6 +14,8 @@ const Signup = () => {
     useCreateUserWithEmailAndPassword(auth);
   const [updateProfile] = useUpdateProfile(auth);
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location?.state?.from?.pathname || "/";
   //-----------------------------
   const handleSignupForm = async (event) => {
     event.preventDefault();
@@ -28,9 +30,9 @@ const Signup = () => {
   //------------------------------
   useEffect(() => {
     if (user || authUser) {
-      navigate("/");
+      navigate(from, { replace: true });
     }
-  }, [user, authUser, navigate]);
+  }, [user, authUser, from, navigate]);
 
   return (
     <div className=" lg:max-w-lg  md:max-w-md mx-auto my-20 px-5">
