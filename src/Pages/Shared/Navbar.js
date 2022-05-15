@@ -18,10 +18,13 @@ const Navbar = () => {
         <Link to="/review">Review</Link>
       </li>
       <li>
-        <Link to="contact">Contact Us</Link>
+        <Link to="/contact">Contact Us</Link>
       </li>
       <li>
-        <Link to="about">About</Link>
+        <Link to="/about">About</Link>
+      </li>
+      <li>
+        <Link to="/dashboard">Dashboard</Link>
       </li>
       {authUser ? (
         <li>
@@ -36,7 +39,7 @@ const Navbar = () => {
         </li>
       ) : (
         <li>
-          <Link to="login">Login</Link>
+          <Link to="/login">Login</Link>
         </li>
       )}
     </>
@@ -75,6 +78,10 @@ const Navbar = () => {
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal p-0">{navMenuItems}</ul>
       </div>
+      {/* sidebar toggle btn */}
+      <label htmlFor="sidebar" className="btn btn-xs drawer-button lg:hidden">
+        Open drawer
+      </label>
     </div>
   );
 };
