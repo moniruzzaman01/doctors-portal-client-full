@@ -5,9 +5,12 @@ import AvailableAppointment from "./AvailableAppointment";
 import { DayPicker } from "react-day-picker";
 import "react-day-picker/dist/style.css";
 import axios from "axios";
+import Modal from "../Shared/Modal";
 
 const Appoinment = () => {
   const [services, setServices] = useState([]);
+  const [modal, setModal] = useState(null);
+  const [modalData, setModalData] = useState({});
 
   //------------------------------
   useEffect(() => {
@@ -39,17 +42,12 @@ const Appoinment = () => {
             <AvailableAppointment
               key={index}
               service={service}
+              setModalData={setModalData}
+              setModal={setModal}
             ></AvailableAppointment>
           ))}
-          {/* {recentAppontment.map((reApp, key) => (
-            <AvailableAppointment
-              key={key}
-              name={reApp.name}
-              time={reApp.time}
-              spaces={reApp.spaces}
-            ></AvailableAppointment>
-          ))} */}
         </div>
+        {modal && <Modal setModal={setModal} modalData={modalData}></Modal>}
       </div>
       <Footer />
     </section>
