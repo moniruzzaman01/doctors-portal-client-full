@@ -1,24 +1,53 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import SocialSignup from "../Shared/SocialSignup";
+import {
+  useCreateUserWithEmailAndPassword,
+  useUpdateProfile,
+  useAuthState,
+} from "react-firebase-hooks/auth";
+import auth from "../../firebase.init";
 
 const Signup = () => {
+  const [authUser] = useAuthState(auth);
+  const [createUserWithEmailAndPass, user] =
+    useCreateUserWithEmailAndPassword(auth);
+  const [updateProfile] = useUpdateProfile(auth);
+  const navigate = useNavigate();
+  //-----------------------------
+  const handleSignupForm = async (event) => {
+    event.preventDefault();
+    const name = event.target.name.value;
+    const email = event.target.email.value;
+    const pass = event.target.pass.value;
+
+    await createUserWithEmailAndPass(email, pass);
+    await updateProfile({ displayName: name });
+  };
+
+  //------------------------------
+  useEffect(() => {
+    if (user || authUser) {
+      navigate("/");
+    }
+  }, [user, authUser, navigate]);
+
   return (
     <div className=" lg:max-w-lg  md:max-w-md mx-auto my-20 px-5">
       <h2 className="text-5xl text-center mb-10">SignUp</h2>
-      <form className="">
+      <form onSubmit={handleSignupForm}>
         <label htmlFor="">Name</label>
         <br />
         <input
           type="text"
-          name=""
+          name="name"
           className="input mb-5 input-bordered w-full max-w-lg"
         />
         <label htmlFor="">Email</label>
         <br />
         <input
           type="text"
-          name=""
+          name="email"
           className="input mb-5 input-bordered w-full max-w-lg"
         />
         <br />
@@ -26,7 +55,7 @@ const Signup = () => {
         <br />
         <input
           type="text"
-          name=""
+          name="pass"
           className="input mb-5 input-bordered w-full max-w-lg"
         />
         <br />

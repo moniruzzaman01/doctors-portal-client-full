@@ -18,6 +18,7 @@ const SocialSignup = () => {
       navigate("/");
     }
   }, [user, navigate]);
+
   return (
     <div>
       <div className="flex flex-col w-full border-opacity-50">
