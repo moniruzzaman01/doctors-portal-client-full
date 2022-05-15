@@ -23,7 +23,6 @@ const Modal = ({ modalData, setModal }) => {
       patientEmail: email,
       phone,
     };
-    console.log(appointment);
     axios.post(`http://localhost:5000/appointment`, appointment);
     setModal(false);
   };

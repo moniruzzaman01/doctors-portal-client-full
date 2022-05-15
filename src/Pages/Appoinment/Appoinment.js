@@ -6,11 +6,13 @@ import { DayPicker } from "react-day-picker";
 import "react-day-picker/dist/style.css";
 import axios from "axios";
 import Modal from "../Shared/Modal";
+import { format } from "date-fns";
 
 const Appoinment = () => {
   const [services, setServices] = useState([]);
   const [modal, setModal] = useState(null);
   const [modalData, setModalData] = useState({});
+  const [date, setDate] = useState(new Date());
 
   //------------------------------
   useEffect(() => {
@@ -29,13 +31,13 @@ const Appoinment = () => {
             alt=""
           />
           <div className=" lg:mr-10">
-            <DayPicker />
+            <DayPicker mode="single" selected={date} onSelect={setDate} />
           </div>
         </div>
       </div>
       <div className="my-10">
         <h4 className="text-primary text-center text-3xl mb-10 lg:mb-20">
-          Available Appointments on April 30,2022
+          Available Appointments on {format(date, "PP")}
         </h4>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:mx-20 mx-5">
           {services.map((service, index) => (
