@@ -3,8 +3,9 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../../firebase.init";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { format } from "date-fns";
 
-const Modal = ({ modalData, setModal }) => {
+const Modal = ({ modalData, setModal, date, refetch }) => {
   const [authUser] = useAuthState(auth);
   const { name, slots } = modalData;
 
@@ -27,6 +28,7 @@ const Modal = ({ modalData, setModal }) => {
     await axios.post(`http://localhost:5000/appointment`, appointment);
     setModal(false);
     toast.success("Appointment added");
+    refetch();
   };
 
   return (
@@ -44,7 +46,7 @@ const Modal = ({ modalData, setModal }) => {
           <h3 className="text-lg font-bold mb-10">{name}</h3>
           <form onSubmit={handleModalForm}>
             <input
-              value={"April 30,2020"}
+              value={format(date, "PP")}
               disabled
               type="text"
               name="date"
