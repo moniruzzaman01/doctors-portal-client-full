@@ -7,10 +7,11 @@ import {
   useAuthState,
 } from "react-firebase-hooks/auth";
 import auth from "../../firebase.init";
+import Spinner from "../Shared/Spinner";
 
 const Signup = () => {
   const [authUser] = useAuthState(auth);
-  const [createUserWithEmailAndPass, user] =
+  const [createUserWithEmailAndPass, user, loading] =
     useCreateUserWithEmailAndPassword(auth);
   const [updateProfile] = useUpdateProfile(auth);
   const navigate = useNavigate();
@@ -36,6 +37,7 @@ const Signup = () => {
 
   return (
     <div className=" lg:max-w-lg  md:max-w-md mx-auto my-20 px-5">
+      {loading && <Spinner />}
       <h2 className="text-5xl text-center mb-10">SignUp</h2>
       <form onSubmit={handleSignupForm}>
         <label htmlFor="">Name</label>

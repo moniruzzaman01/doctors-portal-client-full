@@ -2,6 +2,7 @@ import React from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../../firebase.init";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const Modal = ({ modalData, setModal }) => {
   const [authUser] = useAuthState(auth);
@@ -23,8 +24,9 @@ const Modal = ({ modalData, setModal }) => {
       patientEmail: email,
       phone,
     };
-    axios.post(`http://localhost:5000/appointment`, appointment);
+    await axios.post(`http://localhost:5000/appointment`, appointment);
     setModal(false);
+    toast.success("Appointment added");
   };
 
   return (
