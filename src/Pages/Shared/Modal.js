@@ -25,10 +25,20 @@ const Modal = ({ modalData, setModal, date, refetch }) => {
       patientEmail: email,
       phone,
     };
-    await axios.post(`http://localhost:5000/appointment`, appointment);
+    await axios
+      .post(`http://localhost:5000/appointment`, appointment)
+      .then((res) => {
+        console.log(res);
+        if (res.data.acknowledged) {
+          toast.success("Appointment added");
+          refetch();
+        } else {
+          toast.error(
+            `You already have an appointment on ${res.data.date} at ${res.data.slot}`
+          );
+        }
+      });
     setModal(false);
-    toast.success("Appointment added");
-    refetch();
   };
 
   return (

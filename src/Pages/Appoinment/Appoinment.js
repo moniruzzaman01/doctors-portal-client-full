@@ -1,24 +1,25 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+// import {useEffect } from 'react'       //uncomment while use general data call .. ##Related to line-45
 import chair from "../../assets/images/chair.png";
 import Footer from "../Shared/Footer";
 import AvailableAppointment from "./AvailableAppointment";
 import { DayPicker } from "react-day-picker";
 import "react-day-picker/dist/style.css";
-import axios from "axios";
+// import axios from "axios";      //uncomment to use axios..  ##Related to line-34
 import Modal from "../Shared/Modal";
 import { format } from "date-fns";
 import { useQuery } from "react-query";
 import Spinner from "../Shared/Spinner";
 
 const Appoinment = () => {
-  // const [services, setServices] = useState([]);
+  // const [services, setServices] = useState([]); //uncomment forLine 45
   const [modal, setModal] = useState(null);
   const [modalData, setModalData] = useState({});
   const [date, setDate] = useState(new Date());
   const formattedDate = format(date, "PP");
 
   //------------------------------
-
+  //using fetch
   const {
     data: services,
     isLoading,
@@ -29,6 +30,18 @@ const Appoinment = () => {
     )
   );
 
+  //using axios with react query
+  // const {
+  //   data: services,
+  //   isLoading,
+  //   refetch,
+  // } = useQuery(["services", formattedDate], () =>
+  //   axios(`http://localhost:5000/services/?date=${formattedDate}`).then(
+  //     (res) => res.data
+  //   )
+  // );
+
+  //general data call usint useEffect
   // useEffect(() => {
   //   axios(`http://localhost:5000/services/?date=${formattedDate}`).then(
   //     ({ data }) => setServices(data)
